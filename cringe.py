@@ -1,21 +1,19 @@
 import tweepy
 
+print("twitter time yeet")
+
 def getToken(num):
-    tokenFile = open('TOKEN.txt','r')
-    tokenTxt = tokenFile.read()
+    tokenFile = open("TOKEN.txt")
+    tokencontent  = tokenFile.read()
+    tokenTxt = tokencontent.split('\n')
     return tokenTxt[num]
 
-# Authenticate to Twitter
-auth = tweepy.OAuthHandler(getToken(0), 
-    getToken(1))
-auth.set_access_token(getToken(2), 
-    getToken(3))
+auth = tweepy.OAuthHandler(getToken(0),getToken(1))
+auth.set_access_token(getToken(2),getToken(3))
 
 api = tweepy.API(auth)
 
-try:
-    api.verify_credentials()
-    print("Authentication OK")
-except:
-    print("Error during authentication")
+mentions = api.mentions_timeline()
 
+for mention in mentions:
+    print(str(mention.id) + "\t" + mention.text)
