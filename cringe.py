@@ -13,6 +13,8 @@ auth.set_access_token(getToken(2),getToken(3))
 
 api = tweepy.API(auth)
 
-api.update_status("[BOT]testing for imminent cringe ka-chink #2")
-
-api.create_friendship("cringesurround")
+mentions = api.mentions_timeline()
+for mention in mentions:
+    if "#cringe" in mention.text.lower():
+        print(f"#cringe found, liking tweet of {mention.author.name}")
+        api.create_favorite(mention.id)
