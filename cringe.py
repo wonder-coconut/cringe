@@ -13,7 +13,6 @@ auth.set_access_token(getToken(2),getToken(3))
 
 api = tweepy.API(auth)
 
-mentions = api.mentions_timeline()
+api.update_status("[BOT]testing for imminent cringe ka-chink #2")
 
-for mention in mentions:
-    print(str(mention.id) + "\t" + mention.text)
+api.create_friendship("cringesurround")
