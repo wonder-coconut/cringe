@@ -1,6 +1,20 @@
+import json
 import tweepy
 
 print("twitter time yeet")
+
+#tweet listener stream
+class MyStreamListener(tweepy.StreamListener):
+    def __init__(self, api):
+        self.api = api
+        self.me = api.me()
+
+    def on_status(self, tweet):
+        print(f"{tweet.user.name}:{tweet.text}")
+
+    def on_error(self, status):
+        print("Error detected")
+
 
 def getToken(num):
     tokenFile = open("TOKEN.txt")
@@ -8,13 +22,14 @@ def getToken(num):
     tokenTxt = tokencontent.split('\n')
     return tokenTxt[num]
 
+#OAuth
 auth = tweepy.OAuthHandler(getToken(0),getToken(1))
 auth.set_access_token(getToken(2),getToken(3))
 
-api = tweepy.API(auth)
+#API object
+api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-mentions = api.mentions_timeline()
-for mention in mentions:
-    if "#cringe" in mention.text.lower():
-        print(f"#cringe found, liking tweet of {mention.author.name}")
-        api.create_favorite(mention.id)
+#tweet filter
+tweets_listener = MyStreamListener(api)
+stream = tweepy.Stream(api.auth, tweets_listener)
+stream.filter(track=["Python", "Django", "Tweepy"], languages=["en"])
