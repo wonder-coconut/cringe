@@ -5,12 +5,15 @@ print("twitter time yeet")
 
 #tweet listener stream
 class MyStreamListener(tweepy.StreamListener):
-    def __init__(self, api):
-        self.api = api
-        self.me = api.me()
 
     def on_status(self, tweet):
         print(f"{tweet.user.name}:{tweet.text}")
+        print("retweeting")
+        try:
+            api.retweet(tweet.id)
+            print("retweeted")
+        except:
+            print("failure")
 
     def on_error(self, status):
         print("Error detected")
@@ -29,7 +32,7 @@ auth.set_access_token(getToken(2),getToken(3))
 #API object
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-#tweet filter
-tweets_listener = MyStreamListener(api)
-stream = tweepy.Stream(api.auth, tweets_listener)
-stream.filter(track=["Python", "Django", "Tweepy"], languages=["en"])
+#API object for stream listener
+myStreamListener = MyStreamListener()
+myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
+myStream.filter(follow=["1284123616682991617"])
