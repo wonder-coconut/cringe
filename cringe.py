@@ -4,7 +4,7 @@ import time
 print("welcome back")
 
 def getToken(ind):
-    tokenFile = open("TOKEN1.txt")
+    tokenFile = open("tokens/TOKEN1.txt")
     tokencontent = tokenFile.read()
     tokenTxt = tokencontent.split("\n")
     return tokenTxt[ind]

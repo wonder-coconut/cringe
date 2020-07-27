@@ -4,7 +4,7 @@ import threading
 
 
 def getToken(ind):
-    tokenFile = open("TOKEN2.txt")
+    tokenFile = open("tokens/TOKEN2.txt")
     tokencontent = tokenFile.read()
     tokenTxt = tokencontent.split("\n")
     return tokenTxt[ind]
@@ -23,7 +23,7 @@ except:
 
 def timeRepeater():
     print(f"tweeting at {time.ctime()}")
-    api.update_status(f"[bot]sex is cringe\ntimestamp:\t{time.ctime()}")
+    api.update_status(f"[bot]\nsex is cringe\ntimestamp:\t{time.ctime()}")
 
     threading.Timer(43200,timeRepeater).start()
 
