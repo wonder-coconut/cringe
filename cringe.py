@@ -33,22 +33,25 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_error(self,status):
         if status == 420: #nice
-            print("rate limit exceeded,killing bot")
-            return False
+            print("rate limit exceeded, sleeping")
+            time.sleep(15*60)
+            return True
 
         else:
             print("error")
-
-
 
 #twitter authentication
 auth = tweepy.OAuthHandler(getToken(0),getToken(1))
 auth.set_access_token(getToken(2),getToken(3))
 
 #api object
-api = tweepy.API(auth)
+try:
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    print("authentication succesfull")
+except:
+    print("auth error")
 
 #tweet listener
 tweets_listener = MyStreamListener(api)
 stream = tweepy.Stream(api.auth, tweets_listener)
-stream.filter(follow = ["1284123616682991617"],languages = ["en"])
+stream.filter(follow = ["851386239228006400"],languages = ["en"])
