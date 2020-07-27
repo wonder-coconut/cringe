@@ -23,8 +23,8 @@ except:
 
 def timeRepeater():
     print(f"tweeting at {time.ctime()}")
-    api.update_status(f"[bot]sex is cringe\ntimestamp:{time.ctime()}")
+    api.update_status(f"[bot]sex is cringe\ntimestamp:\t{time.ctime()}")
 
-    threading.Timer(60,timeRepeater).start()
+    threading.Timer(43200,timeRepeater).start()
 
 timeRepeater()
