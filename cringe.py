@@ -1,6 +1,5 @@
 import tweepy
 import time
-import threading
 
 print("welcome back")
 
