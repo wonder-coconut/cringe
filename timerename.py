@@ -4,7 +4,7 @@ import threading
 
 
 def getToken(ind):
-    tokenFile = open("TOKEN.txt")
+    tokenFile = open("TOKEN2.txt")
     tokencontent = tokenFile.read()
     tokenTxt = tokencontent.split("\n")
     return tokenTxt[ind]
