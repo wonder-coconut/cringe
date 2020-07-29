@@ -36,7 +36,7 @@ def timeRepeater(index):
     api.update_status(f"[bot]\n--------------\n{text}\n--------------\ntimestamp:\t{time.ctime()}")
     print("tweeted succesfully")
     
-    threading.Timer(30,timeRepeater,args=[index+1]).start() #repeats every 4 hours with index increment #args is supposed to be an iterable(personal ref)
+    threading.Timer(14400,timeRepeater,args=[index+1]).start() #repeats every 4 hours with index increment #args is supposed to be an iterable(personal ref)
 
 timeRepeater(index)
 
