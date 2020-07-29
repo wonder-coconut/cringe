@@ -20,11 +20,23 @@ try:
 except:
     print("auth error")
 
+global index
+index = 0
 
-def timeRepeater():
+
+def rick(c):
+    file = open("rickroll.txt",'r')
+    text = file.read().split()
+    return text[c]
+
+
+def timeRepeater(index):
+    text = rick(index)
     print(f"tweeting at {time.ctime()}")
-    api.update_status(f"[bot]\nsex is cringe\ntimestamp:\t{time.ctime()}")
+    api.update_status(f"[bot]\n--------------\n{text}\n--------------\ntimestamp:\t{time.ctime()}")
+    print("tweeted succesfully")
+    
+    threading.Timer(30,timeRepeater,args=[index+1]).start() #repeats every 4 hours with index increment #args is supposed to be an iterable(personal ref)
 
-    threading.Timer(43200,timeRepeater).start()
+timeRepeater(index)
 
-timeRepeater()
