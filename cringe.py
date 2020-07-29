@@ -57,4 +57,4 @@ except:
 #tweet listener
 tweets_listener = MyStreamListener(api)
 stream = tweepy.Stream(api.auth, tweets_listener)
-stream.filter(follow = ["851386239228006400"],languages = ["en"])
+stream.filter(follow = ["851386239228006400","1687676052"],languages = ["en"])
