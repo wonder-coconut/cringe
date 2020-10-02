@@ -4,7 +4,7 @@ import time
 print("welcome back")
 
 def getToken(ind):
-    tokenFile = open("tokens/TOKEN1.txt")
+    tokenFile = open("tokens/TOKEN2.txt")
     tokencontent = tokenFile.read()
     tokenTxt = tokencontent.split("\n")
     return tokenTxt[ind]
@@ -27,9 +27,10 @@ class MyStreamListener(tweepy.StreamListener):
 
             #else:#printing live update tweets from my bot testing account
             print(f"{tweet.user.screen_name}\tsaid\t{tweet.text}")
-            print("favoriting tweet")
-            api.create_favorite(tweet.id)
-            print("tweet favorited")
+            print("retweeting:")
+            api.retweet(tweet.id)
+            print("retweeted")
+            print("____________________________________________________________________________________________________________")
 
         except:
             print("error")
@@ -57,5 +58,5 @@ except:
 #tweet listener
 tweets_listener = MyStreamListener(api)
 stream = tweepy.Stream(api.auth, tweets_listener)
-stream.filter(follow = ["851386239228006400"])
+stream.filter(track = ["#DalitLivesMatter","#dalitslivesmatter","#JusticeForHathrasVictim","#JusticeForBalrampurVictim"])
 
