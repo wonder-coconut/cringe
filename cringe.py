@@ -18,6 +18,7 @@ class MyStreamListener(tweepy.StreamListener):
         self.me = api.me()
 
     def on_status(self,tweet):
+        print("tweet found")
         try:#replying to tweets with the hashtag cringe
             
             #if "#cringe" in tweet.text:
@@ -27,13 +28,28 @@ class MyStreamListener(tweepy.StreamListener):
 
             #else:#printing live update tweets from my bot testing account
             print(f"{tweet.user.screen_name}\tsaid\t{tweet.text}")
-            print("retweeting:")
-            api.retweet(tweet.id)
-            print("retweeted")
+
+            words = (tweet.text).split()
+            tags = ["#DalitLivesMatter","#JusticeForBalrampurVictim","#JusticeForHathrasVictim"]
+
+            flag = False
+
+            for word in words:
+                if word in tags:
+                    flag = True
+                    break
+            
+
+            if(flag):    
+
+                print("retweeting:")
+                api.retweet(tweet.id)
+                print("retweeted")
+                
             print("____________________________________________________________________________________________________________")
 
-        except:
-            print("error")
+        except Exception as e:
+            print(e)
 
     def on_error(self,status):
         if status == 420: #nice
@@ -58,5 +74,14 @@ except:
 #tweet listener
 tweets_listener = MyStreamListener(api)
 stream = tweepy.Stream(api.auth, tweets_listener)
-stream.filter(track = ["#DalitLivesMatter","#dalitslivesmatter","#JusticeForHathrasVictim","#JusticeForBalrampurVictim"])
+
+following = api.friends_ids("myfootmytutor")
+
+i=0
+while(i<len(following)):
+    following[i] = str(following[i])
+    i=i+1
+
+#print(following)
+stream.filter(follow = following)
 
